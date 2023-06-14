@@ -14,7 +14,15 @@
         </a>
         <br/>
         <br/>
+
+        <form action="/students" method="" >
+            <div class="form-group">
+                <input type="search" name="search" class="from-control" value="{{$searchText}}" placeholder="Search" style="width:50%;">
+                <button class="btn btn-primary" >Search</button>
+            </div>
+        </form>
         <br/>
+
         <table class="table table-striped">
             <tr>
                 <th>Student Name</th>
@@ -58,6 +66,14 @@
                 </p>
             @endforelse()
         </table>
+        {{ $students->appends(['search' => $searchText])->links() }}
+{{--        {{$students->links()}}--}}
+
+        {{--        <div class="row">--}}
+{{--        {{$students->links()}}--}}
+{{--        </div>--}}
+
+
 
     </div>
 

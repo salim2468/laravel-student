@@ -23,6 +23,7 @@ class GradeController extends Controller
             'english' => 'required|integer|min:0|max:100',
 
         ]);
+
         $grade = Grade::create([
             'student_id' => $student_id,
             'math' => $request->input('math'),

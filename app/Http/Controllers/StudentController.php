@@ -10,10 +10,25 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::all();
-        return view('students/index',['students'=>$students]);
+
+        $searchText = $request['search'] ?? "";
+
+
+        if ($searchText != "") {
+
+//            $students = Student::where('fullName','LIKE',"%$searchText%")->orWhere('address','LIKE',"%$searchText%")->get();
+
+            $students = Student::where('fullName','LIKE',"%$searchText%")->orWhere('address','LIKE',"%$searchText%")->paginate(10);
+        }else{
+
+            $students = Student::paginate(10);
+        }
+            $data = compact('students','searchText');
+            return view('students/index', $data);
+
+            //return view('students/index', ['students' => $students,'searchText'=>$searchText]);
     }
 
     /**
@@ -31,11 +46,11 @@ class StudentController extends Controller
     {
         // validation
         $request->validate([
-            'fullName'=> 'required',
-            'dob'=>'required|date',
-            'address'=>'required'
+            'fullName' => 'required',
+            'dob' => 'required|date',
+            'address' => 'required'
 
-            ]);
+        ]);
 
         $student = Student::create([
             'fullName' => $request->input('fullName'),
@@ -51,7 +66,7 @@ class StudentController extends Controller
     public function show(string $id)
     {
         $student = Student::find($id);
-        return view('students.show')->with('student',$student);
+        return view('students.show')->with('student', $student);
     }
 
     /**
@@ -61,22 +76,22 @@ class StudentController extends Controller
     {
         //
         $student = Student::find($id);
-        return view('students.edit')->with('student',$student);
+        return view('students.edit')->with('student', $student);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,string $id)
+    public function update(Request $request, string $id)
     {
         // validation
         $request->validate([
-            'fullName'=> 'required',
-            'dob'=>'required|date',
-            'address'=>'required',
+            'fullName' => 'required',
+            'dob' => 'required|date',
+            'address' => 'required',
         ]);
 
-        $student = Student::where('id',$id)->update([
+        $student = Student::where('id', $id)->update([
             'fullName' => $request->input('fullName'),
             'dob' => $request->input('dob'),
             'address' => $request->input('address')
@@ -90,7 +105,7 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         $student = Student::find($id);
-        if(!is_null($student)){
+        if (!is_null($student)) {
             $student->delete();
         }
         return redirect('/students');

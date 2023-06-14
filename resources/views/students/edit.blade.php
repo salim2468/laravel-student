@@ -18,35 +18,45 @@
 
                 <input type="text" name="fullName"
                        placeholder="Enter Full Name"
-                       class="form-control"
+                       class="form-control input-spacing"
                        value="{{$student->fullName}}">
+                @error('fullName')
+                <div class="alert alert-danger" role="alert">
+                    <li>
+                        {{$message}}
+                    </li>
+                </div>
+                @enderror
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
                 <label>Date Of Birth</label>
-                <input type="date" name="dob" class="form-control" placeholder="Enter Date of Birth"
+                <input type="date" name="dob" class="form-control input-spacing" placeholder="Enter Date of Birth"
                        value="{{$student->dob}}"
                 >
+                @error('dob')
+                <div class="alert alert-danger" role="alert">
+                    <li>
+                        {{$message}}
+                    </li>
+                </div>
+                @enderror
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
                 <label>Address</label>
-                <input type="text" name="address" class="form-control" placeholder="Enter Address"
+                <input type="text" name="address" class="form-control input-spacing" placeholder="Enter Address"
                        value="{{$student->address}}">
+                @error('address')
+                <div class="alert alert-danger" role="alert">
+                    <li>
+                        {{$message}}
+                    </li>
+                </div>
+                @enderror
             </div>
             <br/>
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             <br>
-            @if($errors->any())
-                @foreach($errors->all() as $error)
-                    <div class="alert alert-danger" role="alert">
-                        <li>
-                            {{$error}}
-                        </li>
-                    </div>
-
-
-                @endforeach
-            @endif
 
 
         </div>
