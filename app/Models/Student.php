@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent;
 class Student extends Model
 {
     use HasFactory;
@@ -14,6 +13,10 @@ class Student extends Model
     public $timestamps = true;
 
     protected $fillable = ['fullName', 'dob', 'address'];
+
+    public function gradeModels(){
+        return $this->hasMany(Grade::class);
+    }
 
 
 }

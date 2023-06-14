@@ -29,6 +29,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        // validation
+        $request->validate([
+            'fullName'=> 'required',
+            'dob'=>'required|date',
+            'address'=>'required'
+
+            ]);
+
         $student = Student::create([
             'fullName' => $request->input('fullName'),
             'dob' => $request->input('dob'),
@@ -42,7 +50,8 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::find($id);
+        return view('students.show')->with('student',$student);
     }
 
     /**
@@ -60,6 +69,13 @@ class StudentController extends Controller
      */
     public function update(Request $request,string $id)
     {
+        // validation
+        $request->validate([
+            'fullName'=> 'required',
+            'dob'=>'required|date',
+            'address'=>'required',
+        ]);
+
         $student = Student::where('id',$id)->update([
             'fullName' => $request->input('fullName'),
             'dob' => $request->input('dob'),
