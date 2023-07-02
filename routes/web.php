@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,8 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::resource('/students',StudentController::class);
+
+Route::get('/grades/{student_id}',[GradeController::class,'index'])->name('grades.index');
+Route::post('/grades/{student_id}',[GradeController::class,'storeGrade'])->name('grades.store');
+Route::get('/grades/edit/{grade_id}',[GradeController::class,'edit'])->name('grades.edit');
+Route::put('/grades/{grade_id}',[GradeController::class,'update'])->name('grades.update');
